@@ -33,6 +33,7 @@ jobs:
 
     - name: Source
       run: |
+        brew install automake libtool boost pkg-config libevent
         git clone https://github.com/bitcoin/bitcoin.git
         cd bitcoin
         ./autogen.sh && ./configure --with-gui=no && make
