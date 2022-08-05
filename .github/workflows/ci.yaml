@@ -13,9 +13,7 @@ defaults:
     shell: bash
 
 jobs:
-  all:
-    name: All
-
+  pass:
     runs-on: macos-latest
 
     steps:
@@ -27,5 +25,16 @@ jobs:
         toolchain: stable
 
     - run: make pass
+
+  fail:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Rust Toolchain Components
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
 
     - run: make fail
