@@ -37,7 +37,7 @@ fn main() {
 
   let tempdir = TempDir::new().unwrap();
 
-  let bin = env::var_os("BITCOIND").unwrap_or("bitcoind".into());
+  let bin = env::var("BITCOIND").unwrap();
 
   let child = Kill(
     Command::new(bin)
