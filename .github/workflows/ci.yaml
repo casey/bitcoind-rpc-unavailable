@@ -26,10 +26,10 @@ jobs:
       with:
         toolchain: stable
 
-    - run: brew install bitcoin
-
     - name: Homebrew
-      run: RUST_LOG=trace RUST_BACKTRACE=1 BITCOIND=bitcoind cargo run
+      run: |
+        brew install bitcoin
+        RUST_LOG=trace RUST_BACKTRACE=1 BITCOIND=bitcoind cargo run
 
     - name: Source
       run: |
