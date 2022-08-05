@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+    - '*'
+  push:
+    branches:
+    - master
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  all:
+    name: All
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Rust Toolchain Components
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+
+    - name: Homebrew
+      run: |
+        brew install bitcoin
+        RUST_LOG=trace RUST_BACKTRACE=1 BITCOIND=bitcoind cargo run
+
+    - name: Source
+      run: |
+        brew install automake libtool boost pkg-config libevent
+        git clone https://github.com/bitcoin/bitcoin.git
+        (cd bitcoin && ./autogen.sh && ./configure --with-gui=no && make src/bitcoind)
+        RUST_LOG=trace RUST_BACKTRACE=1 BITCOIND=$PWD/bitcoin/src/bitcoind cargo run

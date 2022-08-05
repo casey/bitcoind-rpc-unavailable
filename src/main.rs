@@ -9,6 +9,7 @@ use {
   bitcoin::Network,
   bitcoincore_rpc::{Client, RpcApi},
   std::{
+    env,
     net::TcpListener,
     process::{Child, Command},
     thread,
@@ -26,6 +27,8 @@ impl Drop for Kill {
 }
 
 fn main() {
+  env_logger::init();
+
   let port = TcpListener::bind("127.0.0.1:0")
     .unwrap()
     .local_addr()
@@ -34,10 +37,13 @@ fn main() {
 
   let tempdir = TempDir::new().unwrap();
 
+  let bin = env::var("BITCOIND").unwrap();
+
   let child = Kill(
-    Command::new("bitcoind")
+    Command::new(bin)
       .args(&[
         "-regtest",
+        "-txindex=1",
         &format!("-datadir={}", tempdir.path().display()),
         &format!("-rpcport={port}"),
       ])
