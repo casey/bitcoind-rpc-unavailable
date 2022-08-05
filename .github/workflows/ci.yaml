@@ -26,14 +26,6 @@ jobs:
       with:
         toolchain: stable
 
-    - name: Homebrew
-      run: |
-        brew install bitcoin
-        RUST_LOG=trace RUST_BACKTRACE=1 BITCOIND=bitcoind cargo run
+    - run: make pass
 
-    - name: Source
-      run: |
-        brew install automake libtool boost pkg-config libevent
-        git clone https://github.com/bitcoin/bitcoin.git
-        (cd bitcoin && ./autogen.sh && ./configure --with-gui=no && make src/bitcoind)
-        RUST_LOG=trace RUST_BACKTRACE=1 BITCOIND=$PWD/bitcoin/src/bitcoind cargo run
+    - run: make fail
