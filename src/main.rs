@@ -9,6 +9,7 @@ use {
   bitcoin::Network,
   bitcoincore_rpc::{Client, RpcApi},
   std::{
+    env,
     net::TcpListener,
     process::{Child, Command},
     thread,
@@ -36,8 +37,10 @@ fn main() {
 
   let tempdir = TempDir::new().unwrap();
 
+  let bin = env::var_os("BITCOIND").unwrap_or("bitcoind".into());
+
   let child = Kill(
-    Command::new("/Users/rodarmor/src/bitcoind-rpc-unavailable/bin/bitcoind.7d3817b29")
+    Command::new(bin)
       .args(&[
         "-regtest",
         &format!("-datadir={}", tempdir.path().display()),
