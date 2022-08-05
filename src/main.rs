@@ -26,6 +26,8 @@ impl Drop for Kill {
 }
 
 fn main() {
+  env_logger::init();
+
   let port = TcpListener::bind("127.0.0.1:0")
     .unwrap()
     .local_addr()
@@ -35,7 +37,7 @@ fn main() {
   let tempdir = TempDir::new().unwrap();
 
   let child = Kill(
-    Command::new("bitcoind")
+    Command::new("/Users/rodarmor/src/bitcoind-rpc-unavailable/bin/bitcoind.7d3817b29")
       .args(&[
         "-regtest",
         &format!("-datadir={}", tempdir.path().display()),
