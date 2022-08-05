@@ -43,6 +43,7 @@ fn main() {
     Command::new(bin)
       .args(&[
         "-regtest",
+        "-txindex=1",
         &format!("-datadir={}", tempdir.path().display()),
         &format!("-rpcport={port}"),
       ])
