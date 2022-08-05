@@ -35,7 +35,5 @@ jobs:
       run: |
         brew install automake libtool boost pkg-config libevent
         git clone https://github.com/bitcoin/bitcoin.git
-        cd bitcoin
-        ./autogen.sh && ./configure --with-gui=no && make
-        cd ..
+        (cd bitcoin && ./autogen.sh && ./configure --with-gui=no && make src/bitcoind)
         RUST_LOG=trace RUST_BACKTRACE=1 BITCOIND=$PWD/bitcoin/src/bitcoind cargo run
