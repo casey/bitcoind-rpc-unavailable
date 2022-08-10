@@ -46,6 +46,9 @@ fn main() {
         "-txindex=1",
         &format!("-datadir={}", tempdir.path().display()),
         &format!("-rpcport={port}"),
+        "-debug=rpc",
+        "-debug=libevent",
+        "-debug=walletdb",
       ])
       .spawn()
       .unwrap(),
