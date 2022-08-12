@@ -1,10 +1,10 @@
 export RUST_LOG = trace
 export RUST_BACKTRACE = 1
 
-pass: install-bitcoind-with-homebrew
+fast: install-bitcoind-with-homebrew
 	BITCOIND=bitcoind cargo run
 
-fail: build-bitcoind-from-source
+slow: build-bitcoind-from-source
 	BITCOIND=$$PWD/bitcoin/src/bitcoind cargo run
 
 install-bitcoind-with-homebrew:
